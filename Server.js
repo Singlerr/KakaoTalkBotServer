@@ -1,0 +1,41 @@
+var express    = require('express');
+var app        = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.get('/keyboard', function(req, res){
+  const menu = {
+      "type": 'text'
+  };
+
+  res.set({
+      'content-type': 'application/json'
+  }).send(JSON.stringify(menu));
+});
+//카톡 메시지 처리
+app.post('/message',function (req, res) {
+    const _obj = {
+        user_key: req.body.user_key,
+        type: req.body.type,
+        content: req.body.content
+    };
+	var logM = _obj.user_key+" : "+_obj.content
+	console.log(logM);
+	logs[nu] = logM;
+	nu++;
+    if(_obj.content == 'Info' || _obj.content == '정보')
+    {
+      let massage = {
+          "message": {
+              "text": '안녕\nㅎㅇ'
+          }
+      };
+      res.set({
+          'content-type': 'application/json'
+      }).send(JSON.stringify(massage));
+    }
+   
+});
+app.listen(3000, function() {
+});
+console.log("Ready");
